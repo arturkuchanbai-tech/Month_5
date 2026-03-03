@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -24,6 +25,8 @@ class Film(models.Model):
     is_hit = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+    views = models.IntegerField(default=0)
+    favorit_count=models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -35,6 +38,7 @@ class Review(models.Model):
     text = models.TextField()
     stars = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews')  
+
 
     def __str__(self):
         return self.text
